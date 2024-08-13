@@ -1,4 +1,6 @@
 # Matrix-Percepatan-Gaya-Gesek
+  
 Animasi Tutorial singkat menggunakan Augmented Matrix mencari Percepatan & Gayagesek
 
-Silakan kunjungi [Poly Landhep v2]()
+![tampilan gambar](img/tampilan.gif)  
+Silakan kunjungi [Poly Landhep v2]()  
