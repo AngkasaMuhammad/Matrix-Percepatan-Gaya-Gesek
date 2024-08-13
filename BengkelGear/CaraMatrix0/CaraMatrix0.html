@@ -1,0 +1,88 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Cara Matrix 0
+		</title>
+		<link rel="stylesheet" href="../../Poly%20Landhep/v2/../v1/css/object3dview.css"/><!--<link rel="stylesheet" href="https://angkasamuhammad.github.io/Poly-Landhep/Poly%20Landhep/v2/../v1/css/object3dview.css"/>-->
+		<link rel="stylesheet" href="../v0/css/BengkelGear.css"/>
+		<link rel="stylesheet" href="css/CaraMatrix0.css"/>
+		<link id="meshshader" href="../v0/js/meshshader.wgsl"/>
+		<link id="bordershader" href="../v0/js/bordershader.wgsl"/>
+		
+		<link id="meshgltf" href="../v0/3d/BengkelGear.gltf"/>
+		<link id="meshbin" href="../v0/3d/BengkelGear.bin"/>
+		
+		<link id="suarabwggg" href="sound/bersamaWGGGng.m4a"/>
+		<!-- <link id="suarabi" href="sound/bismillah.m4a"/> -->
+		<link id="suarawus" href="https://cdn.freesound.org/previews/745/745408_10643461-lq.mp3"/><!-- https://freesound.org/people/Geoff-Bremner-Audio/sounds/745408/ -->
+		<link id="suaratak" href="https://cdn.freesound.org/previews/385/385935_7097737-lq.mp3"/><!-- https://freesound.org/people/P%C3%B3l/sounds/385935/ -->
+		<link id="suaraduar" href="https://cdn.freesound.org/previews/95/95749_1386366-lq.mp3"/><!-- https://freesound.org/people/CGEffex/sounds/95749/ -->
+		<link id="suaramulai" href="sound/mulai.m4a"/>
+		
+		<link id="imgtak" href="https://h7.alamy.com/comp/2AJ37GX/the-flames-of-an-engine-backfiring-through-its-exhaust-pipe-2AJ37GX.jpg"/>
+		<link id="imgaugmat" href="img/augmat.png"/>
+		<link id="imgyoyo" href="https://i.pinimg.com/736x/27/40/c9/2740c91357eb98d45a3e9fb8208cf75f.jpg"/>
+		<link id="imgchatgpt" href="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQu3AMxCyeSHozCTXPcZHK6RsKRjzO681AzTA&s"/>
+		<link id="imgsalam" href="https://1000logos.net/wp-content/uploads/2024/01/Folded-Hands-Emoji.png"/>
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="tombol">
+					<input id="time" mousedescr="Time bar" type="range" min="0" max="88" value="0" step="1e-9"/>
+					<svg id="pause" mousedescr="Pause" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -10 -30
+							L -10 30
+							L -30 30
+							Z
+							M 30 -30
+							L 10 -30
+							L 10 30
+							L 30 30
+							Z
+						"/>
+					</svg>
+					<svg id="play" mousedescr="Play" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -40
+							L 30 0
+							L -30 40
+							Z
+						"/>
+					</svg>
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<h3>Tutorial hitung percepatan pakai matrix</h3>
+				<table class="hlmhelp" style="color:#88ff88;"><tbody>
+					<tr><td>Putar kamera	</td><td>: Hold R	</td></tr>
+					<tr><td>Zoom	</td><td>: Hold R + mousewheel	</td></tr>
+					<tr><td>Geser kamera arah horizontal	</td><td>: Hold M	</td></tr>
+					<tr><td>Geser kamera arah vertikal	</td><td>: Hold M + mousewheel	</td></tr>
+					<tr><td>Reset kamera	</td><td>: Press H	</td></tr>
+				</tbody></table>
+				
+				<div id="scrollberlebih"></div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="../../Poly%20Landhep/v2/../v1/js/wgpu-matrix.js"></script><!--<script src="https://angkasamuhammad.github.io/Poly-Landhep/Poly%20Landhep/v2/../v1/js/wgpu-matrix.js"></script>-->
+		<script src="../v0/js/rumus.js"></script>
+		<script src="../v0/js/PL.js"></script>
+		<script src="../v0/js/freadgltf.js"></script>
+		<script src="../v0/js/loaddraw.js"></script>
+		<script src="js/camera.js"></script>
+		<script src="../v0/js/siappakai.js"></script>
+		
+		<script src="js/CaraMatrix0.js"></script>
+		<script src="../v0/js/ui.js"></script>
+		<script src="js/cmui.js"></script>
+	</body>
+</html>

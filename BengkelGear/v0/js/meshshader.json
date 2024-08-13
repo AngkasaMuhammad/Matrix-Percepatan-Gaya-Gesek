@@ -1,0 +1,190 @@
+[
+	[
+		{
+			"text": "//mesh shader\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//texture -->> Y down\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "88",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "177",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nstruct masuk{\n\t@location(0) pos:vec3f,\n\t@location(1) tex:vec2f,\n\t@location(2) pilih:vec2f,\n\t@location(3) nor:vec3f,\n\t@location(4) joi:vec4u,\n\t@location(5) wei:vec4f,\n\t@builtin(instance_index) ins:u32,\n}\nstruct hasil{\n\t@builtin(position) posout:vec4f,\n\t@location(0) tex:vec2f,\n\t@location(1) pilihx:f32,\n\t@location(2) matvert0:vec3f,\n\t@location(3) matvert1:vec3f,\n\t@location(4) matvert2:vec3f,\n\t@location(5) nor:vec3f,\n\t@location(6) w:f32,\n}\nstruct stmatlen{\n\tinvmat3dlen:u32,\n\tmat2dlen:u32,\n}\nstruct stcam{\n\tcam:mat4x4f,\n}\nstruct stvaluelain{\n\tw:u32,\n\th:u32,\n\tmclen:u32,\n\twarsin:u32,//warna sinar\n\twarbay:u32,//warna bayangan\n\tarahsinar:vec3f,\n\tgetar:vec4f,\n}\nstruct fragout{\n\t@location(0) warna:vec4f,\n\t//@location(1) border:f32,//vec4f,\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@group(0) @binding(2) var<storage> mat2d: array<mat3x3f>;\n@group(0) @binding(3) var<storage> mat3d: array<mat4x4f>;\n@group(0) @binding(4) var<storage> invmat3ddata: array<mat4x4f>;\n@group(0) @binding(5) var<uniform> matlen: stmatlen;//matrix length info per instance\n\n@group(1) @binding(0) var<uniform> unicam: stcam;\n@group(1) @binding(1) var<uniform> valuelain: stvaluelain;\n@group(1) @binding(2) var<storage> mco: array<u32>;\n@group(1) @binding(3) var<storage> mc: array<vec4u>;\n@group(1) @binding(4) var<storage> matem: array<mat3x3f>;\n@group(1) @binding(5) var<storage> matec: array<u32>;\n@group(1) @binding(6) var<storage,read_write> layar: array<f32>;\n@group(1) @binding(7) var border: texture_2d<f32>;\n@group(1) @binding(8) var canv: texture_2d<f32>;\n",
+			"visible": true,
+			"time": "1.00000",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "177",
+					"g": "255",
+					"b": "177",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n@vertex fn vs(\n\tdata:masuk,\n) -> hasil {\n\t//\n\tvar iins = data.ins*matlen.invmat3dlen;\n\tlet i0 = data.joi[0];\n\tlet i1 = data.joi[1];\n\tlet i2 = data.joi[2];\n\tlet i3 = data.joi[3];\n\t\n\tlet m3d = (\n\n(mat3d[iins+i0] *invmat3ddata[i0]) *data.wei[0]\n+(mat3d[iins+i1] *invmat3ddata[i1]) *data.wei[1]\n+(mat3d[iins+i2] *invmat3ddata[i2]) *data.wei[2]\n+(mat3d[iins+i3] *invmat3ddata[i3]) *data.wei[3]\n\n\t\t)\n\t;\n\tlet ge = valuelain.getar;\n\tlet pos = unicam.cam*m3d*vec4f(data.pos,1.,);\n\t\n\tlet m = mat2d[\n\t\tu32(round(1.-data.pilih.y))\n\t\t+data.ins *matlen.mat2dlen\n\t];\n\t\n\t//normal\n\tlet nor = arahnormal(data.nor,m3d,data.pos,);\n\tvar posgetar = pos.xy/pos.w; //posisi masuk layar\n\tposgetar += select(\n\t\tvec2f(.0),\n\t\tsin(pos.xy*ge.xy*9999999.) *.002, // /(33.*pos.w*pos.w+222.),\n\t\t.0 < pos.w && pos.w < 11. &&\n\t\t-1.1 < posgetar.x && posgetar.x < 1.1 &&\n\t\t-1.1 < posgetar.y && posgetar.y < 1.1\n\t);\n\tposgetar *= pos.w;\n\t//coba acak\n\treturn hasil(\n\t\t//pos,\n\t\tvec4f(posgetar,pos.zw,), //coba getar\n\t\tdata.tex,\n\t\tdata.pilih.x,\n\t\tm[0],\n\t\tm[1],\n\t\tm[2],\n\t\tnor,\n\t\tpos.w,\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "99",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nconst iterlen = 111u;//angkasukasuka\n@fragment fn fs(\n\tparh: hasil //parameter hasil\n) -> fragout {\t\n\tlet posxy = parh.posout.xy;\n\tlet p0 = vec2i(posxy);\n\tlet p1 = p0+vec2i(1i,1i,);\n\tlet p2 = p0+vec2i(-1i,0i,);\n\tlet p3 = p0+vec2i(0i,-1i,);\n\tlet pix0 = textureLoad(border,p0,0u,).r;\n\tlet pix1 = textureLoad(border,p1,0u,).r;\n\tlet pix2 = textureLoad(border,p2,0u,).r;\n\tlet pix3 = textureLoad(border,p3,0u,).r;\n\tlet jarak =\n\t\tabs(pix0-pix1)\n\t\t+abs(pix0-pix2)\n\t\t+abs(pix0-pix3)\n\t;\n\tlet ap0 = round(textureLoad(canv,p0,0u,).a);\n\tlet a =\n\t\tap0\n\t\t*round(textureLoad(canv,p1,0u,).a)\n\t\t*round(textureLoad(canv,p2,0u,).a)\n\t\t*round(textureLoad(canv,p3,0u,).a)\n\t;\n\tlet warna = select(\n\t\tvec4f(vec3f(1.-a),a,),\n\t\tfragku0(parh),\n\t\tjarak < .1,\n\t);\n\treturn fragout(\n\t\twarna,\n\t\t//atan(parh.w),\n\t);\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn fragku0(\n\tparh: hasil //parameter hasil\n) -> vec4f {\n\tlet layarku = layar[0];\n\n\tlet pelen = valuelain.mclen;//panjang perintah\n\tlet p = parh.tex;\n\tvar ipe = mco[u32(round(parh.pilihx))];\n\tvar colorini = vec4f(.8);\n\t\n\tfor(var a = 0u;a < iterlen;a++){\n\t\tif(pelen <= ipe){\n\t\t\tcolorini = unpack4x8unorm(\n\t\t\t\tmatec[ipe-pelen]\n\t\t\t).abgr;\n\t\t\tbreak;\n\t\t}\n\t\tlet iawal = ipe;\n\t\t//coba\n\t\t\tvar pm =\n\t\t\t\tmatem[mc[ipe][1]]\n\t\t\t\t*mat3x3f(\n\t\t\t\t\tparh.matvert0,\n\t\t\t\t\tparh.matvert1,\n\t\t\t\t\tparh.matvert2,\n\t\t\t\t)\n\t\t\t\t*vec3f(p,1.,);\n\t\t\tpm /= pm.z;\n\t\t//\n\t\t//di kiri relatif\n\t\tipe += select(\n\t\t\tmc[ipe][2],\n\t\t\tmc[ipe][3],\n\t\t\tbentuk(pm.xy,mc[ipe][0],),\n\t\t);\n\t\tif(iawal == ipe){\n\t\t\tbreak;\n\t\t}\n\t}\n\t\n\t//blipping transparenccccccc\n\tlet w = valuelain.w;\n\tlet h = valuelain.h;\n\tlet ilayar =\n\t\tu32(parh.posout.x)\n\t\t+u32(parh.posout.y)*w\n\t;\n\t//angka sukasuka\n\tvar blip =\n\t\tsin(layar[ilayar]*2222.3)\n\t\t+layar[ilayar+1u]\n\t\t+sin(\n\t\t\tparh.posout.x\n\t\t\t+parh.posout.y\n\t\t\t*1111.03\n\t\t)\n\t\t+2.41\n\t;\n\tblip = blip%1.;\n\tlayar[ilayar] = blip;\n\tlet a = select( //0.0 sampe 0.4980392156862745 (127./255.)\n\t\tcolorini.a*1.1-.575, // -.5\n\t\tcolorini.a*1.1, // *.5\n\t\tcolorini.a < .5,\n\t)*2.; //lalu dikali 2.\n/*=======\n\tif(colorini.a < blip){\n\t\tdiscard;\n\t}\n--------*/\n\tif(a < blip){\n\t\tdiscard;\n\t}\n\n\n\n\n\n\n\n\t//alpha > .5 -->> campur sinar matahari\n\t//alpha < .5 -->> tidak campur sinar matahari\n\tlet ws = unpack4x8unorm(valuelain.warsin).abgr; //warna sinar\n\tlet wb = unpack4x8unorm(valuelain.warbay).abgr; //warna bayangan\n\tlet inte = max(.0,dot(parh.nor,valuelain.arahsinar,),); //interpolation\n\t//let w2 = ws*inte+wb*(1-inte);//warna gabungan\n\tlet w2 = select(wb,ws,inte > .0);\n\t\n\tlet out = select(\n\tvec4f(\n\t\tcolorini.xyz*(1-w2.a)\n\t\t+w2.xyz*w2.a,\n\t\tcolorini.a,\n\t),\n\tcolorini,\n\tcolorini.a < .5,\n\t);\n\treturn out;\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nfn bentuk(\n\tp:vec2f,\n\tpilih:u32,\n)->bool{\n\tlet x = p.x;\n\tlet y = p.y;\nswitch(pilih){\n\tcase 0u:{\n\t\treturn .0 < y;\n\t}\n\tcase 1u:{\n\t\treturn abs(x) < y;\n\t}\n\tcase 2u:{\n\t\treturn sin(x) < y;\n\t}\n\tcase 3u:{\n\t\treturn 1./cos(x) < y;\n\t}\n\tcase 4u:{\n\t\treturn tan(x) < y;\n\t}\n\tcase 5u:{\n\t\treturn distance(p,vec2f(.0),) < 1.;\n\t}\n\tcase 6u:{\n\t\tlet pi = 3.14159;\n\t\tlet xini = cos(x/pi);\n\t\tlet yini = cos(y/pi);\n\t\treturn .0 < xini && .0 < yini; //jendela gedung gaza https://www.ft.com/__origami/service/image/v2/images/raw/http%3A%2F%2Fft-ig-images-prod.s3-website-eu-west-1.amazonaws.com%2Fv1%2F8301842205-7r4hu.jpg?source=ig\n\t}\n\tcase 7u:{\n\t\treturn x*x+y*y < tan(200.*y/x);\n\t}\n\tdefault:{//sukasuka, biasanya ga akan dipiilih\n\t\t//return y*sin(x*x) < x*sin(y*y);\n\t\t//return sin(x)%cos(x) < sin(y);//asli\n//coba\n\t\treturn sin(sin(x*y)) < pow(5.,sin(y*sin(x)),)*sin(9.*x);\n\t\t\n\t}\n}}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "fn arahnormal(\n\tnorawal:vec3f,\n\tm:mat4x4f,\n\tvp:vec3f,//vertpos\n)->vec3f{\n\t/*\n\t\tLANGKAH: =-=-=-=-=-=-=-=-=-=-=-\n\t\tcek apakah normal sejajar vertikal\n\t\tbikin 4 sumbu: +x -x +y -y\n\t\tgeser sumbu sejauh vertpos\n\t\tgabung 4 sumbu jadi 1 matrix\n\t\tkali matrix\n\t\tcek w\n\t\t\tboolean tukar\n\t\t\tbikin 2 sumbu: x & y\n\t\tmatrix kali vertpos\n\t\tvertpos, 2 sumbu, jadi vec3f\n\t\tgeser 2 sumbu sejauh vertpos\n\t\tcross 2 sumbu pake boolean tukar\n\t\tnormalize\n\t*/\n\tvar sz = norawal;\n\tvar sx0_3 = vec3f(1.,.0,.0,);\n\tvar sx1_3 = vec3f(-1.,.0,.0,);\n\tif(abs(sz.y) != 1.){\n\t\tsx0_3 = (vec3f(sz.z,.0,-sz.x,));\n\t\tsx1_3 = (vec3f(-sz.z,.0,sz.x,));\n\t}\n\tvar sy0_3 = cross(sz,sx0_3,);//ini dicoba ga normalize\n\tvar sy1_3 = cross(sz,sx1_3,);\n\n\tvar tukar = false;\n\tvar ms = m*mat4x4f(\n\t\tvec4f(vp+sx0_3,1.,),\n\t\tvec4f(vp+sx1_3,1.,),\n\t\tvec4f(vp+sy0_3,1.,),\n\t\tvec4f(vp+sy1_3,1.,),\n\t);\n\tvar sx:vec4f;\n\tvar sy:vec4f;\n\tif(ms[0].w <= 0.){ sx = ms[1]; tukar = !tukar; }else{ sx = ms[0]; }\n\tif(ms[2].w <= 0.){ sy = ms[3]; tukar = !tukar; }else{ sy = ms[2]; }\n//b -->> baru\n\tlet vpb0 = m*vec4f(vp,1.,);\n\tlet vpb1 = vpb0.xyz/vpb0.w;\n\n\tvar sxb = sx.xyz/sx.w-vpb1;\n\tvar syb = sy.xyz/sy.w-vpb1;\n\n\treturn normalize(select(\n\t\tcross(sxb,syb,),\n\t\tcross(syb,sxb,),\n\t\ttukar,\n\t));\n\t//performa sekitar 15 operasi\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

@@ -1,0 +1,12 @@
+#time{
+    direction: rtl;
+    writing-mode: vertical-lr;
+	flex:auto;
+	width:22px;
+}
+#menu{
+	background:#00000044;
+}
+#tombol{
+	height: -webkit-fill-available;
+}

@@ -1,0 +1,87 @@
+T0 + rF1 = Iα
+F0 + F1 = ma
+rα = a
+
++T0 = -rF1 +Iα
++F0 = -F1 +ma
++0 = -rα +a
+
++T0	= +Iα		-rF1	
++F0	= 	+ma	-F1	
++0	= -rα	+a		
+
++T0	= +I		-r	| α
++F0	= 	+m	-1	| a
++0	= -r	+1		| F1
+
+
+
+
+
+3 poros 1 sabuk 4 penghubung -=-=-==-=-=-=-
+
++T0	+r0Fa	=	+I0α0	
++T1	+r1Fb	=	+I1α1	
++T2	+r2Fc	=	+I2α2	
++F0	+Fa	+Fb	+Fc	=	+ma
++r0α0	=	+a	
++r1α1	=	+a	
++r2α2	=	+a	
+
++T0	=	-r0Fa			+I0α0				
++T1	=		-r1Fb			+I1α1			
++T2	=			-r2Fc			+I2α2		
++F0	=	-Fa	-Fb	-Fc				+ma	
+0	=				-r0α0			+a	
+0	=					-r1α1		+a	
+0	=						-r2α2	+a	
+
++T0	=	+I0α0				-r0Fa			
++T1	=		+I1α1				-r1Fb		
++T2	=			+I2α2				-r2Fc	
++F0	=				+ma	-Fa	-Fb	-Fc	
+0	=	-r0α0			+a				
+0	=		-r1α1		+a				
+0	=			-r2α2	+a				
+
+
+
+
+
+3 poros 2 sabuk 4 penghubung -=-=-==-=-=-=-
+
++T0	+raFa	=	+I0α0	
++T1	+rbFb	+rcFc	=	+I1α1	
++T2	+rdFd	=	+I2α2	
++F3	+Fa	+Fb	+Fd	=	+m3a3
++F4	+Fc	=	+m4a4
++raα0 = +a3
++rbα1 = +a3
++rdα2 = +a3
++rcα1 = +a4
+
++T0	=	+I0α0					-raFa				
++T1	=		+I1α1					-rbFb	-rcFc		
++T2	=			+I2α2						-rdFd	
++F3	=				+m3a3		-Fa	-Fb		-Fd	
++F4	=					+m4a4			-Fc		
+0	=	-raα0			+a3						
+0	=		-rbα1		+a3						
+0	=		-rcα1			+a4					
+0	=			-rdα2	+a3						
+
+
+
+coba semua jadi plus -=-=-=-=-=--=
+
++T0	=	+I0α0					+rAFA				
++T1	=		+I1α1					+rBFB		+rDFD	
++T2	=			+I2α2					+rCFC		
++F3	=				+m3a3		+FA	+FB	+FC		
++F4	=					+m4A4				+FD	
+0	=	+rAα0			+a3						
+0	=		+rBα1		+a3						
+0	=			+rCα2	+a3						
+0	=		+rDα1			+a4					
+
+

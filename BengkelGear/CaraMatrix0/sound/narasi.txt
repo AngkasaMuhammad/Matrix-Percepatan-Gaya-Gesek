@@ -1,0 +1,21 @@
+bisnmillah
+salam
+di sini aku bahas cara menghitung percepatan poros dan sabuk pakai augmented matrix.
+
+aturan soal ini:
+1. poros hanya berputar pada sumbu Y up.
+2. arah putaran poros menggunakan tangan kanan jempol ke atas.
+3. tanda panah pada sabuk/tali adalah arah gerak positive
+4. Gaya gesek static dan kinetic bernilai sama.
+
+Contoh soal yang paling mudah, yaitu yoyo.
+Yoyo terdiri dari 1 poros, 1 tali.
+keduanya terhubung 1 katrol.
+
+berapa percepatan masingmasing?
+berapa besar gaya gesek sebelum berubah menjadi kinetic?
+
+ok sekarang bikin augmented matrix dengan beberapa variable tersusun seperti ini
+nanti system ini harus menjadi system ini, bisa pake gausjordan, inverse matrix, dsb
+
+ok cukup sampai sini penjelasan singkat, silakan komentar di discord:WPU, channel:showcaseproject thread:augmented matrix percepatan gerak maturnuwun wassalaam

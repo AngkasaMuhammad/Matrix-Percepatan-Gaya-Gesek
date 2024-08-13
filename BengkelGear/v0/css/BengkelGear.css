@@ -1,0 +1,19 @@
+input,select,option,button{
+	background:#000000bb;
+	color:white;
+}
+.hlmhelp,
+.objlist{
+	background:#00000088;
+}
+.objlist > tbody > tr > td{
+	/*width:66px;*/
+}
+table, tr, td{
+	border:2px solid #007700;
+	border-collapse:collapse;
+}
+svg{
+	width:33px;
+	height:33px;
+}

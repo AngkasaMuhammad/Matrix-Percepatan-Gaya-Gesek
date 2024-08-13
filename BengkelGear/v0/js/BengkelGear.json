@@ -1,0 +1,365 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet bg = {}\nsiappakai.mulai(aa=>{\n\t\n\tlet sp = siappakai\n\tlet log = sp.log\n\tlet v3 = wgpuMatrix.vec3\n\tlet m3 = wgpuMatrix.mat3\n\tlet m4 = wgpuMatrix.mat4\n\tlet m3dide = m4.identity()\n\t\n\tlog('Bengkel Gear js')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let obj = bg.obj = {}\nlet id = 0\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.newporos = ()=>{\n\tlet rangka = sp.newobj('rangkaporos')\n\tlet node = rangka.node\n\tlet b0 = node.chi[1]\n\t\n\treturn obj['obj'+id++] = {\n\t\trangka,\n\t\tm:node.matlok,\n\t\tmb0:b0.matlok,\n\t\tconnarr:[],//connector\n\t\tmove:bg.moveporos,\n\t\tresize:resizeporos,\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.newsabuk = ()=>{\n\tlet rangka = sp.newobj('rangkagrid')\n\tlet node = rangka.node\n\t\n\treturn obj['obj'+id++] = {\n\t\trangka,\n\t\tm:node.matlok,\n\t\tconnarr:[],//connector\n\t\tmove:bg.movesabuk,\n\t}\n\t\n\t//rumus posisi sabuk di 2 katrol\n\t// https://www.tec-science.com/mechanical-power-transmission/belt-drive/calculation-of-the-belt-length/\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.pasangkatrol = (poros,sabuk,)=>{\n\tlet rangka = sp.newobj('rangkakatrol')\n\tlet node = rangka.node\n\t\n\tlet mk = node.matlok\n\tlet mp = poros.m\n\tlet ms = sabuk.m\n\tm4.translate(mk,[\n\t\tmp[12],\n\t\tms[13],\n\t\tmp[14],\n\t],mk,)\n\t\n\t//=-=-=-=-=-=-=-\n\t//sampe sini, connarr push\n\tlet o = obj['obj'+id++] = {\n\t\trangka,\n\t\tm:node.matlok,\n\t\tporos,\n\t\tsabuk,\n\t\tmove:movekatrol,\n\t}\n\tporos.connarr.push(o)\n\tsabuk.connarr.push(o)\n\t\n\treturn o\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.pasangdiff = (sabuk0,poros,sabuk1,)=>{\n\t\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.moveporos = (poros,v,)=>{\n\tlet m = poros.m\n\tm[12] = v[0]\n\tm[14] = v[2]\n\t\n\t//=-=-=-=-=-=-=-\n\tfor(let conn of poros.connarr){\n\t\tconn.move(conn)\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "222",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.movesabuk = (sabuk,v,)=>{\n\tlet m = sabuk.m\n\tm[13] = v[1]\n\t\n\t//=-=-=-=-=-=-=-\n\tfor(let conn of sabuk.connarr){\n\t\tconn.move(conn)\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let movekatrol = katrol=>{\n\tlet poros = katrol.poros\n\tlet pm = poros.m\n\tlet sm = katrol.sabuk.m\n\tlet km = katrol.m\n\tkm[12] = pm[12]\n\tkm[13] = sm[13]\n\tkm[14] = pm[14]\n\t\n\tporos.resize = resizeporos\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let movediff = diff=>{\n\t\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let resizeporos = poros=>{\n\tlet ymax = -99999\n\tlet ymin = 99999\n\tfor(let {m:{13:y}} of poros.connarr){\n\t\tymax = Math.max(ymax,y,)\n\t\tymin = Math.min(ymin,y,)\n\t}\n\tporos.m[13] = (ymax+ymin)/2\n\tporos.m[5] = (ymax-ymin)/2+3\n\t\n\tporos.resize = null\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "sp.settimeout(33)\nsp.updsinar(0xffffff33)\nsp.updbayangan(0x00000044)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//coba\nlet s = bg.newsabuk()\nlet p = bg.newporos()\nlet s1 = bg.newsabuk()\nbg.pasangkatrol(p,s,)\nbg.pasangkatrol(p,s1,)\nlet v = v3.create()\n\ns1.move(s1,[0,11,7,],)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "sp.render(dt=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "v3.addScaled(v,[dt*1,dt*2,dt*3,],.001,v,)\np.move(p,v,)\ns.move(s,v,)\n\nfor(let str in obj){\n\tlet objini = obj[str]\n\tobjini.resize?.(objini)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

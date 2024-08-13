@@ -1,0 +1,25 @@
+bisnmillah
+salam
+
+penjelasan singkat tentang cara membuat augmented matrix untuk mencari percepatan dan gaya gesek
+
+bikin 2 augmented matrix
+untuk ukuran kita lihat
+jumlah ( poros + sabuk + katrol)
++1 kolom paling kanan
+jadi 11 x 12
+
+matrix pertama
+tulis inersia & massa di diagonal,
+torsi & gaya di kolom paling kanan,
+jarijari katrol di kolom yang sama dengan porosnya,
+angka 1 di kolom yang sama dengan sabuknya,
+
+matrix kedua
+tulis identitas
+tulis percepatan dan gayagesek di kolom paling kanan
+
+jadikan simetri, isi kotak kosong dengan 0
+lalu lanjutkan dengan kalkulator augmented matrix untuk dapatkan percepatan dan gayagesek
+
+ok cukup sampai sini penjelasan singkat, maturnuwun wassalaam

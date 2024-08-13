@@ -1,0 +1,1312 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n//calculator persamaan matrix https://www.emathhelp.net/en/calculators/algebra-2/system-of-linear-equations-calculator/\n//di fungsi katsetr, ok udah dibikin\n\nlet cm = {}\nsiappakai.mulai(async aa=>{\n\t\n\tlet que = ru.que\n\tlet sp = siappakai\n\tlet log = sp.log\n\tlet v2 = wgpuMatrix.vec2\n\tlet v3 = wgpuMatrix.vec3\n\tlet m3 = wgpuMatrix.mat3\n\tlet m4 = wgpuMatrix.mat4\n\tlet m3dide = m4.identity()\n\tlet cx2d = sp.context2d()\n\tlet w = sp.canvas2d().width\n\tlet h = sp.canvas2d().height\n\t\n\tlog('Cara Matrix 0 js')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let acx = cm.acx = new AudioContext()\nlet bufarr = []\nacx.suspend()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let bikinaud = async que=>{\n\tlet nama = que\n\tlet aud = document.querySelector(que).href\n\taud = await fetch(aud)\n\taud = await aud.arrayBuffer()\n\taud = await acx.decodeAudioData(aud)\n\tlog(nama+' '+aud.duration.toFixed(3)+' s')\n\treturn aud\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let bikinbuf = (aud,posbar,mulai,offset,durasi,vol,)=>{\n\t//posbar -->> posisi slider\n\t//mulai -->> detik mulai\n\t\n\tlet buf = acx.createBufferSource()\n\tbuf.buffer = aud\n\tlet gain = acx.createGain()\n\tgain.gain.value = vol\n\tbuf.connect(gain).connect(acx.destination)\n\tbuf.start(\n\t\tMath.max(acx.currentTime+mulai-posbar,0,),\n\t\tMath.max(-mulai+posbar,0,)+offset,\n\t\tisFinite(durasi)?durasi:Number.MAX_SAFE_INTEGER,\n\t)\n\tbufarr.push(buf)\n\treturn buf\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let audbwggg = await bikinaud('#suarabwggg')\nlet audtak = await bikinaud('#suaratak')\nlet audwus = await bikinaud('#suarawus')\nlet audduar = await bikinaud('#suaraduar')\nlet audmulai = await bikinaud('#suaramulai')\n\nlet timeoffset = 0//posisi time dari currentTime\nlet isplaying = false\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let setbuftime = cm.setbuftime = ()=>{\n\tfor(let buf of bufarr){\n\t\tbuf.stop()\n\t}\n\tru.habisarr(bufarr)\n\tlet p = +(cmui.time?.value??0)\n\tdaftarsuara(p)\n\ttimeoffset = acx.currentTime-p\n\tisplaying && acx.resume()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "cm.pausetime = ()=>{\n\tacx.suspend()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "cm.play = ()=>{\n\tacx.resume()\n\tisplaying = true\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "cm.pause = ()=>{\n\tacx.suspend()\n\tisplaying = false\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let bikinimg = async que=> new Promise(res=>{\n\tlet img = new Image()\n\timg.src = document.querySelector(que).href\n\timg.addEventListener('load',e=>res(img),)\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let bikinkatrol = ()=>{\n\tlet kat = sp.newobj('rangkakatrol').m3d\n\tlet rsab = sp.newobj('rangkasabuk')\n\tlet sab = rsab.m3d\n\t\n\treturn {\n\t\tkat,\n\t\tsab,\n\t\tr:4,\n\t\tst:rsab.node.mat2d[0],//sabuk texture\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let katsetr = (ks0,ks1,)=>{//katrol set jarijari\n\tlet m3d0 = ks0.kat\n\tlet r = ks0.r\n\tlet s = r/4\n\tlet m = null\n\tm4.scaling([s,1,s,],m3d0.tengah,)\n\tr = Math.abs(r)/4-1\n\tm3d0.atas[13] = -r\n\tm3d0.bawah[13] = r\n\t\n\t//sambung sabuk\n\tlet msab = ks0.sab.rangkasabuk\n\tlet m0 = m3d0.rangkakatrol\n\tlet m1 = ks1.kat.rangkakatrol\n\tlet j = v3.dist(//jarak 2 poros\n\t\t[m0[12],m0[13],m0[14],],\n\t\t[m1[12],m1[13],m1[14],],\n\t)\n\tlet rsel = ks0.r-ks1.r//selisih r0 r1\n\tlet sudut = Math.asin(rsel/j)\n\tm4.aim(\n\t\tm4.getTranslation(m0),\n\t\tm4.getTranslation(m1),\n\t\t[0,1,0,],\n\t\tmsab,\n\t)\n\tm4.rotateY(msab,sudut,msab,)\n\tm4.translate(msab,[-ks0.r,0,0],msab,)\n\tlet len = Math.sqrt(-rsel*rsel+j*j)\n\tm4.scale(msab,[1,1,len,],msab,)\n\tm4.translate(msab,[0,0,.5],msab,)\n\t\n\tlet m2dsab = ks0.st\n\tm2dsab[0] = len\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "155",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let movekat = (kat,y,)=>{\n\tkat.kat.rangkakatrol[13] = y\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let movepor = (por,x,z,)=>{\n\tlet m = por.m3d.rangkaporos\n\tm[12] = x\n\tm[14] = z\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let katkepor = (por,katarr,)=>{\n\tlet mp = por.m3d.rangkaporos\n\tlet ymin = Number.MAX_SAFE_INTEGER\n\tlet ymax = -ymin\n\tfor(let kat of katarr){\n\t\tlet mk = kat.kat.rangkakatrol\n\t\tmk[12] = mp[12]\n\t\tmk[14] = mp[14]\n\t\t\n\t\tymin = Math.min(mk[13],ymin,)\n\t\tymax = Math.max(mk[13],ymax,)\n\t}\n\tmp[5] = (ymax-ymin)/2+3\n\tmp[13] = (ymax+ymin)/2\n\t\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "sp.settimeout(0)\nsp.updsinar(0xffffff33)\nsp.updbayangan(0x00000044)\n\nlet introobj = []\nfor(let draw of pl.drawarr){\n\tintroobj.push(sp.newobj(draw.name))\n}\n\nsp.newobj('rangkagrid')\nsp.newobj('rangkaxyz')\nlet por0 = sp.newobj('rangkaporos')\t\t;movepor(por0,-6,0,)\nlet por1 = sp.newobj('rangkaporos')\t\t;movepor(por1,11,19,)\nlet por2 = sp.newobj('rangkaporos')\t\t;movepor(por2,3,-14,)\nlet por3 = sp.newobj('rangkaporos')\t\t;movepor(por3,22,0,)\n\nlet m //-=-=-=-=-=-=\nlet ks0 = bikinkatrol()\t\t;ks0.r = .8\t\t;movekat(ks0,2.2,)\nlet ks1 = bikinkatrol()\t\t;ks1.r = 4.4\t\t;movekat(ks1,-5,)\nlet ks2 = bikinkatrol()\t\t;ks2.r = 3\t\t;movekat(ks2,1.3,)\nlet ks3 = bikinkatrol()\t\t;ks3.r = -4.5\t\t;movekat(ks3,9,)\nlet ks4 = bikinkatrol()\t\t;ks4.r = 2.1\t\t;movekat(ks4,8,)\nkatkepor(por0,[ks0],)\nkatkepor(por1,[ks1],)\nkatkepor(por2,[ks2,ks3,],)\nkatkepor(por3,[ks4],)\n\n\tkatsetr(ks0,ks1,)\n\tkatsetr(ks1,ks2,)\n\tkatsetr(ks2,ks0,)\n\n\tkatsetr(ks3,ks4,)\n\tkatsetr(ks4,ks3,)\n\nlet imgtak = await bikinimg('#imgtak')\nlet imgaugmat = await bikinimg('#imgaugmat')\nlet imgyoyo = await bikinimg('#imgyoyo')\nlet imgchatgpt = await bikinimg('#imgchatgpt')\nlet imgsalam = await bikinimg('#imgsalam')\n\nlet porarr = {\n\t'0'\t:por0.m3d.rangkaporos\t,\n\t'1'\t:por1.m3d.rangkaporos\t,\n\t'2'\t:por2.m3d.rangkaporos\t,\n\t'3'\t:por3.m3d.rangkaporos\t,\n}\nlet katarr = {\n\t'A'\t:ks0.kat.rangkakatrol\t,\n\t'B'\t:ks1.kat.rangkakatrol\t,\n\t'C'\t:ks2.kat.rangkakatrol\t,\n\t'D'\t:ks3.kat.rangkakatrol\t,\n\t'E'\t:ks4.kat.rangkakatrol\t,\n}\nlet sabarr = {\n\t'4':[\n\t\tkatarr['A'],\n\t\tkatarr['B'],\n\t\tkatarr['C'],\n\t],\n\t'5':[\n\t\tkatarr['D'],\n\t\tkatarr['E'],\n\t],\n}\n\nlet kosongjadi0 = [//9 = lewat, 5 = tempel\n\t[9,5,5,5,5,5,9,5,5,5,5,9,],\n\t[5,9,5,5,5,5,5,9,5,5,5,9,],\n\t[5,5,9,5,5,5,5,5,9,9,5,9,],\n\t[5,5,5,9,5,5,5,5,5,5,9,9,],\n\t[5,5,5,5,9,5,9,9,9,5,5,9,],\n\t[5,5,5,5,5,9,5,5,5,9,9,9,],\n\t[9,5,5,5,9,5,5,5,5,5,5,5,],\n\t[5,9,5,5,9,5,5,5,5,5,5,5,],\n\t[5,5,9,5,9,5,5,5,5,5,5,5,],\n\t[5,5,9,5,5,9,5,5,5,5,5,5,],\n\t[5,5,5,9,5,9,5,5,5,5,5,5,],\n]\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "1555",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let mkexy = m=>{ //posisi dari 3d ke 2d\n\t\n\tlet mini = m4.mul(camera.matview,m,)\n\t\n\t//cek jika posisi di depan kamera\n\tif(mini[15] < 0){return null}\n\t\n\treturn {\n\t\tx:( mini[12]/mini[15]  +1 )*w/2,\n\t\ty:( -mini[13]/mini[15]  +1 )*h/2,\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let tablex0 = 77\nlet tablex1 = 566\nlet tabley = 55\nlet tablerow = 11\nlet tablecol = tablerow+1\nlet tables = 26\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_ta = (x,)=>{ //table aug matrix\n\tlet y = tabley\n\tlet row = tablerow\n\tlet col = tablecol\n\tlet s = tables\n\tcx2d.fillRect(x,y,s*col,s*row,)\n\tcx2d.strokeRect(x,y,s*col,s*row,)\n\tcx2d.beginPath()\n\tfor(let a = 1;a < row;a++){\n\t\tcx2d.moveTo(\tx\t,y+s*a\t,)\n\t\tcx2d.lineTo(\tx+s*col\t,y+s*a\t,)\n\t\tcx2d.moveTo(\tx+s*a\t,y\t,)\n\t\tcx2d.lineTo(\tx+s*a\t,y+s*row\t,)\n\t}\n\tcx2d.moveTo(\tx+s*row-2\t,y\t,)\n\tcx2d.lineTo(\tx+s*row-2\t,y+s*row\t,)\n\tcx2d.moveTo(\tx+s*row+2\t,y\t,)\n\tcx2d.lineTo(\tx+s*row+2\t,y+s*row\t,)\n\tcx2d.stroke()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "0",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_rc = (rc,x,pos,)=>{\n//baris:true atau kolom:false, posisi\ncx2d.save()\n\tlet y = tabley\n\tlet row = tablerow\n\tlet col = tablecol\n\tlet s = tables\n\trc?\n\tcx2d.rect(\n\t\tx,\n\t\ty+pos*s,\n\t\ts*row,\n\t\ts,\n\t):\n\tcx2d.rect(\n\t\tx+pos*s,\n\t\ty,\n\t\ts,\n\t\ts*row,\n\t)\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_dia = x=>{\n\tlet y = tabley\n\tlet row = tablerow\n\tlet s = tables\n\tfor(let a = 0;a < row;a++){\n\t\tlet b = a*s\n\t\tcx2d.strokeRect(x+b,y+b,s,s,)\n\t}\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_cell = (x,r,c,)=>{\n\tlet y = tabley\n\tlet s = tables\n\tcx2d.strokeRect(x+c*s,y+r*s,s,s,)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet f_pos = (x,r,c,)=>{\n\tlet y = tabley\n\tlet s = tables\n\treturn { x:x+(c+.5)*s, y:y+(r+.5)*s, }\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let daftarsuara = p=>{\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bikinbuf(audbwggg,p,0,0,NaN,4,);/*-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-*/bikinbuf(audmulai,p,6,1,NaN,1,);/*-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-*/\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbikinbuf(audwus,p,2.5,3,NaN,.5,);\t\tbikinbuf(audtak,p,3.3,0,NaN,.5,);\t\t\t\tbikinbuf(audduar,p,4,0,NaN,1,);\t\t\n\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tbikinbuf(audtak,p,3.55,0,NaN,.5,);\n",
+			"visible": true,
+			"time": "319160.6222711017",
+			"speed": "0.7927927927927949",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "188",
+					"b": "188",
+					"frame": ".999"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "};\t\tsetbuftime();\t\tsp.render(dt=>{\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nif(acx.state === 'running'){\n\tcmui.time.value = acx.currentTime-timeoffset\n}\nlet t = +cmui.time.value\nlet tini = 0\ncx2d.clearRect(-11,-11,w+11,h+11,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//\t\t---\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t0 = 2.5\nif(\n\tt0 < t &&\n\tt < t0+1\n){\n\tlet x = (t-t0)/.5\n\tlet rgb = ru.acak(255)\n\tcx2d.fillStyle = ru.rgba(\n\t\trgb,rgb,rgb,1,\n\t)\ncx2d.save()\n\tcx2d.font = '88px Impact'\n\tcx2d.setTransform(1,0,.5,1,-222,0,)\n\tcx2d.fillText('WOW',x*w,111,)\n\tcx2d.fillText('WOW',(1-x)*w,222,)\n\tcx2d.fillText('WOW',x*w,333,)\n\tcx2d.fillText('WOW',(1-x)*w,444,)\n\tcx2d.fillText('WOW',x*w,555,)\n\tcx2d.fillText('WOW',(1-x)*w,666,)\ncx2d.restore()\n}\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//wow\t\t\t\t\t\t\t\t---\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t\nlet t1 = t0+1\nif(\n\tt1 < t &&\n\tt < t1+.2\n){\ncx2d.save()\n\tcx2d.drawImage(imgtak,111,222,222,188,)\n\tcx2d.font = '222px Impact'\n\tcx2d.fillStyle = '#000077ff'\n\tcx2d.fillText('G',w/2-144,h/2,)\ncx2d.restore()\n}else\n\nif(\n\tt1+.2 < t &&\n\tt < t1+.4\n){\ncx2d.save()\n\tcx2d.drawImage(imgtak,555,266,444,377,)\n\tcx2d.font = '277px Impact'\n\tcx2d.fillStyle = '#000077ff'\n\tcx2d.fillText('G',w/2+144,h/2,)\ncx2d.restore()\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//GG\t\t\t\t\t\t\t\t\t\t---",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t2 = t1+.4\nif(\n\tt2 < t &&\n\tt < t2+2\n){\ncx2d.save()\n\tcx2d.scale(\n\t\t1+Math.random()*.1,\n\t\t1+Math.random()*.1,\n\t)\n\tcx2d.textAlign = 'center'\n\tcx2d.font = '222px Impact'\n\tcx2d.fillStyle = '#770077ff'\n\tcx2d.fillText('Gearing',w/2,h/2,)\ncx2d.restore()\n}\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//Gearing\t\t\t\t\t\t---",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t3 = t2+11\nif(\n\tt3 < t &&\n\tt < t3+2\n){\ncx2d.save()\n\tcx2d.setTransform(3,0,0,3,0,0,)\n\tcx2d.drawImage(imgaugmat,33,22,)\ncx2d.restore()\n}\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//imgaugmat\t\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t4 = t3+2\nif(\n\tt4 < t &&\n\tt < t4+4\n){\ncx2d.save()\n\tcx2d.textAlign = 'center'\n\tcx2d.font = '55px Impact'\n\tcx2d.fillStyle = '#770077ff'\n\tcx2d.fillText('percepatan & gaya gesek',w/2,h/2+22*11,)\ncx2d.restore()\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//percepatan & gaya gesek\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t5 = t4+8\nif(\n\tt5 < t &&\n\tt < 78\n){\nlet tini = t-t5\ncx2d.save()\n\tlet y = tabley\n\tcx2d.fillStyle = '#002200dd'\n\tcx2d.strokeStyle = '#00aa00ff'\n\tf_ta(tablex0)\n\tf_ta(tablex1)\n\t// =\n\tcx2d.fillStyle = ru.rgba(\n\t\tMath.random()*111,\n\t\tMath.random()*111,\n\t\tMath.random()*111,\n\t\t1,\n\t)\n\tcx2d.setTransform(1,0,0,1,Math.random()*6,Math.random()*6,)\n\tcx2d.fillRect(444,y+111,66,17,)\n\tcx2d.fillRect(444,y+155,66,17,)\ncx2d.restore()\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//augmat\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t6 = t5+2\nif(\n\tt6 < t &&\n\tt < t6+13\n){\nlet r = Math.random\ncx2d.save()\n\tcx2d.textAlign = 'center'\n\tcx2d.font = '33px Impact'\n\tcx2d.fillStyle = '#440000ff'\n\tcx2d.fillText('jumlah poros',w/2,h/2+33*3,)\n\tcx2d.fillText('+jumlah sabuk',w/2,h/2+33*4,)\n\tcx2d.fillText('+jumlah katrol',w/2,h/2+33*5,)\n\t\n\tcx2d.fillText('4',w/2+144+r()*3 ,h/2+33*3+r()*3,)\n\tcx2d.fillText('+2',w/2+144+r()*3 ,h/2+33*4+r()*3,)\n\tcx2d.fillText('+5',w/2+144+r()*3 ,h/2+33*5+r()*3,)\n\t\n\tcx2d.font = '44px Impact'\n\tcx2d.fillText(tablerow+' x '+tablecol,w/2,h/2+222,)\n\t\ncx2d.restore()\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//jumlah\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t7 = t6+8\nif(\n\tt7 < t &&\n\tt < t7+2\n){\nlet tini = t-t7\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x1 = tablex1\n\tcx2d.fillStyle = ru.rgba(\n\t\t255,255,255,Math.random(),\n\t)\n\tcx2d.lineWidth = 4\n\tcx2d.beginPath()\n\tf_rc(false,x0,11,)\n\tf_rc(false,x1,11,)\n\tcx2d.fill()\ncx2d.restore()\n}\n\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "99",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//kolom kanan\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "99",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t8 = t7+10.5\nif(\n\tt8 < t &&\n\tt < t8+2\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x1 = tablex1\n\tcx2d.strokeStyle = ru.rgba(\n\t\tMath.random()*255,255,255,Math.random(),\n\t)\n\tcx2d.lineWidth = 4\n\tf_dia(x0)\ncx2d.restore()\n}\n\n\nif(\n\tt8-2 < t &&\n\tt < t8+5\n){\nlet str = (t < t8+2)?['m','I',]:['F','T',]\n\ncx2d.save()\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = ((Date.now()%1000) < 666)?'#ff0000ff':'#00ff00ff'\n\tcx2d.fillStyle = ((Date.now()%1000) < 333)?'#0000ffff':cx2d.fillStyle\n\tfor(let nama in sabarr){\n\t\tlet tot = [0,0,]\n\t\tlet len = 0\n\t\tcx2d.beginPath()\n\t\tfor(let m of sabarr[nama]){\n\t\t\tlet xy = mkexy(m)\n\t\t\tif(!xy){continue}\n\t\t\tlet {x,y,} = xy\n\t\t\ttot[0] += x\n\t\t\ttot[1] += y\n\t\t\tlen++\n\t\t\tcx2d.lineTo(x,y,)\n\t\t}\n\t\tcx2d.closePath()\n\t\tlet x = tot[0]/len\n\t\tlet y = tot[1]/len\n\t\tcx2d.fillText(str[0]+nama,x,y,)\n\t\tcx2d.save()\n\t\t\tcx2d.lineWidth = 11\n\t\t\tcx2d.fillStyle = \n\t\t\tcx2d.strokeStyle = ((Date.now()%1000) < 500)?'#00ff0066':'#00ff0033'\n\t\t\tcx2d.fill()\n\t\t\tcx2d.stroke()\n\t\tcx2d.restore()\n\t}\n\tfor(let nama in porarr){\n\t\tlet xy = mkexy(porarr[nama])\n\t\tif(!xy){continue}\n\t\tlet {x,y,} = xy\n\t\tcx2d.fillText(str[1]+nama,x,y,)\n\t}\n\t\ncx2d.restore()\n}\n\n\nif(\n\tt8 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = 'white'\n\t;({x,y,} = f_pos(x0,0,0,)); cx2d.fillText('I0',x,y+7,)\n\t;({x,y,} = f_pos(x0,1,1,)); cx2d.fillText('I1',x,y+7,)\n\t;({x,y,} = f_pos(x0,2,2,)); cx2d.fillText('I2',x,y+7,)\n\t;({x,y,} = f_pos(x0,3,3,)); cx2d.fillText('I3',x,y+7,)\n\t;({x,y,} = f_pos(x0,4,4,)); cx2d.fillText('m4',x,y+7,)\n\t;({x,y,} = f_pos(x0,5,5,)); cx2d.fillText('m5',x,y+7,)\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//diagonal inertia & massa\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t9 = t8+3.5\nif(\n\tt9 < t &&\n\tt < t9+1.5\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x1 = tablex1\n\tcx2d.strokeStyle = ru.rgba(\n\t\tMath.random()*255,255,255,Math.random(),\n\t)\n\tcx2d.lineWidth = 4\n\tcx2d.beginPath()\n\tf_rc(false,x0,11,)\n\tcx2d.stroke()\ncx2d.restore()\n}\n\n\nif(\n\tt9 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = 'white'\n\t;({x,y,} = f_pos(x0,0,11,)); cx2d.fillText('T0',x,y+7,)\n\t;({x,y,} = f_pos(x0,1,11,)); cx2d.fillText('T1',x,y+7,)\n\t;({x,y,} = f_pos(x0,2,11,)); cx2d.fillText('T2',x,y+7,)\n\t;({x,y,} = f_pos(x0,3,11,)); cx2d.fillText('T3',x,y+7,)\n\t;({x,y,} = f_pos(x0,4,11,)); cx2d.fillText('F4',x,y+7,)\n\t;({x,y,} = f_pos(x0,5,11,)); cx2d.fillText('F5',x,y+7,)\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//kolom kanan\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "222",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t10 = t9+3.5\nif(\n\tt10 < t &&\n\tt < t10+5\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet row = tablerow\n\tcx2d.strokeStyle = ru.rgba(\n\t\tMath.random()*255,255,255,Math.random(),\n\t)\n\tcx2d.lineWidth = 4\n\tcx2d.beginPath()\n\tif(t < t10+2){\tf_rc(false,x0,0,)\t}else\n\tif(t10+3 < t){\tf_rc(false,x0,4,)\t}\n\tcx2d.stroke()\ncx2d.restore()\n}\n\n\nif(\n\tt10 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = '#ffffaaff'\n\t;({x,y,} = f_pos(x0,6,0,)); cx2d.fillText('rA',x,y+7,)\n\t;({x,y,} = f_pos(x0,6,4,)); cx2d.fillText('1',x,y+7,)\n\tif(t10+6 < t){\n\t;({x,y,} = f_pos(x0,7,1,)); cx2d.fillText('rB',x,y+7,)\n\t;({x,y,} = f_pos(x0,7,4,)); cx2d.fillText('1',x,y+7,)\n\t;({x,y,} = f_pos(x0,8,2,)); cx2d.fillText('rC',x,y+7,)\n\t;({x,y,} = f_pos(x0,8,4,)); cx2d.fillText('1',x,y+7,)\n\t;({x,y,} = f_pos(x0,9,2,)); cx2d.fillText('rD',x,y+7,)\n\t;({x,y,} = f_pos(x0,9,5,)); cx2d.fillText('1',x,y+7,)\n\t;({x,y,} = f_pos(x0,10,3,)); cx2d.fillText('rE',x,y+7,)\n\t;({x,y,} = f_pos(x0,10,5,)); cx2d.fillText('1',x,y+7,)\n\t\n\t}\ncx2d.restore()\n}\n\n\nif(\n\tt10-2 < t &&\n\tt < t10+5\n){\ncx2d.save()\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = ((Date.now()%1000) < 666)?'#ff0000ff':'#00ff00ff'\n\tcx2d.fillStyle = ((Date.now()%1000) < 333)?'#0000ffff':cx2d.fillStyle\n\tfor(let nama in katarr){\n\t\tlet xy = mkexy(katarr[nama])\n\t\tif(!xy){continue}\n\t\tlet {x,y,} = xy\n\t\tcx2d.fillText('r'+nama,x,y,)\n\t}\n\t\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//kolom jarijari\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t11 = t10+9\nif(\n\tt11 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x1 = tablex1\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = '#77ffff99'\n\tfor(let a = 0;a < 11;a++){\n\tfor(let b = 0;b < 11;b++){\n\t\t({x,y,} = f_pos(x1,a,b,)); cx2d.fillText(+(a == b),x,y+7,)\n\t}\n\t}\n\t\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//identitas\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t12 = t11+4\nif(\n\tt12 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x1 = tablex1\n\tlet x,y\n\tcx2d.font = '17px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = 'white'\n\t;({x,y,} = f_pos(x1,0,11,)); cx2d.fillText('a0',x,y+7,)\n\t;({x,y,} = f_pos(x1,1,11,)); cx2d.fillText('a1',x,y+7,)\n\t;({x,y,} = f_pos(x1,2,11,)); cx2d.fillText('a2',x,y+7,)\n\t;({x,y,} = f_pos(x1,3,11,)); cx2d.fillText('a3',x,y+7,)\n\t;({x,y,} = f_pos(x1,4,11,)); cx2d.fillText('a4',x,y+7,)\n\t;({x,y,} = f_pos(x1,5,11,)); cx2d.fillText('a5',x,y+7,)\n\t\n\t;({x,y,} = f_pos(x1,6,11,)); cx2d.fillText('FgA',x,y+7,)\n\t;({x,y,} = f_pos(x1,7,11,)); cx2d.fillText('FgB',x,y+7,)\n\t;({x,y,} = f_pos(x1,8,11,)); cx2d.fillText('FgC',x,y+7,)\n\t;({x,y,} = f_pos(x1,9,11,)); cx2d.fillText('FgD',x,y+7,)\n\t;({x,y,} = f_pos(x1,10,11,)); cx2d.fillText('FgE',x,y+7,)\n\t\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//kolom kanan\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t13 = t12+3\nif(\n\tt13 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = '#ffffaaff'\n;({x,y,} = f_pos(x0,0,6,)); cx2d.fillText('rA',x,y+7,)\n;({x,y,} = f_pos(x0,4,6,)); cx2d.fillText('1',x,y+7,)\n;({x,y,} = f_pos(x0,1,7,)); cx2d.fillText('rB',x,y+7,)\n;({x,y,} = f_pos(x0,4,7,)); cx2d.fillText('1',x,y+7,)\n;({x,y,} = f_pos(x0,2,8,)); cx2d.fillText('rC',x,y+7,)\n;({x,y,} = f_pos(x0,4,8,)); cx2d.fillText('1',x,y+7,)\n;({x,y,} = f_pos(x0,2,9,)); cx2d.fillText('rD',x,y+7,)\n;({x,y,} = f_pos(x0,5,9,)); cx2d.fillText('1',x,y+7,)\n;({x,y,} = f_pos(x0,3,10,)); cx2d.fillText('rE',x,y+7,)\n;({x,y,} = f_pos(x0,5,10,)); cx2d.fillText('1',x,y+7,)\n\t\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//simetri\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nlet t14 = t13+2\nif(\n\tt14 < t &&\n\tt < 78\n){\ncx2d.save()\n\tlet x0 = tablex0\n\tlet x,y\n\tcx2d.font = '20px Consolas'\n\tcx2d.textAlign = 'center'\n\tcx2d.fillStyle = '#ffffaa77'\n\tfor(let a in kosongjadi0){\n\t\tlet arr = kosongjadi0[a = +a]\n\t\tfor(let b in arr){\n\t\t\tif(arr[b = +b] === 9){continue}\n\t\t\t;({x,y,} = f_pos(x0,a,b,)); cx2d.fillText('0',x,y+7,)\n\t\t}\n\t}\n\t\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//kosong dengan 0\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nif(\n\t72 < t &&\n\tt < 79\n){\ncx2d.save()\n\t//cx2d.textAlign = 'center'\n\tcx2d.font = '33px Impact'\n\tcx2d.fillStyle = '#ff4400ff'\n\tcx2d.fillText('Augmented matrix calculator:',111,444,)\n\tcx2d.font = '22px Impact'\n\tcx2d.fillText('ChatGPT:',111,500,)\n\tcx2d.drawImage(imgchatgpt,333,555,222,222,)\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//calculator\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nif(\n\t81 < t &&\n\tt < 83\n){\ncx2d.save()\n\tcx2d.drawImage(imgsalam,222,222,222,221,)\ncx2d.restore()\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//\t--",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "122",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t-\t\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\nif(\n\tt2 < t &&\n\tt < t2+2\n){\n\tfor(let obj of introobj){\n\t\tlet m = obj.node.matlok\n\t\t\n\t\tm4.translation([\n\t\t\t(Math.random()-.5)*22,\n\t\t\t(Math.random()-.5)*22,\n\t\t\t(Math.random()-.5)*22,\n\t\t],m,)\n\t\tm4.rotate(m,[\n\t\t\tMath.random()-.5,\n\t\t\tMath.random()-.5,\n\t\t\tMath.random()-.5,\n\t\t],Math.random()*5,m,)\n\t\tm4.scale(m,[2,2,2,],m,)\n\t\tm[15] = .6+Math.random()*.1\n\t}\n}else{\n\tfor(let obj of introobj){\n\t\tlet m = obj.node.matlok\n\t\tm.fill(0)\n\t\tm[15] = 1\n\t}\n}\n\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//Gearing\t\t\t\t\t\t\t---",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//\t-\t-\t-\t",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\n//m3d putaran katrol\nlet mp0 = por0.m3d.b0\nlet mp1 = por1.m3d.b0\nlet mp2 = por2.m3d.b0\nlet mp3 = por3.m3d.b0\nlet v4 = 7\nlet v5 = v4/ks2.r*ks3.r\nlet putar0 = v4/ks0.r*dt*.0001\nlet putar1 = v4/ks1.r*dt*.0001\nlet putar2 = v4/ks2.r*dt*.0001\nlet putar3 = v5/ks3.r*dt*.0001\nm4.rotateY(mp0,putar0,mp0,)\nm4.rotateY(mp1,putar1,mp1,)\nm4.rotateY(mp2,putar2,mp2,)\nm4.rotateY(mp3,putar3,mp3,)\n\nlet mk0 = ks0.kat.b0\nlet mk1 = ks1.kat.b0\nlet mk2 = ks2.kat.b0\nlet mk3 = ks3.kat.b0\nlet mk4 = ks4.kat.b0\nm4.copy(mp0,mk0,)\nm4.copy(mp1,mk1,)\nm4.copy(mp2,mk2,)\nm4.copy(mp2,mk3,)\nm4.copy(mp3,mk4,)\nks0.st[8] += v4*dt*.0001\nks1.st[8] += v4*dt*.0001\nks2.st[8] += v4*dt*.0001\nks3.st[8] += v5*dt*.0001\nks4.st[8] += v5*dt*.0001\n//sampe sini, cepat sabuk\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "222",
+					"g": "188",
+					"b": "222",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})\n",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

@@ -1,0 +1,192 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\nlet bg = {}\nsiappakai.mulai(aa=>{\n\t\n\tlet sp = siappakai\n\tlet log = sp.log\n\tlet m3 = wgpuMatrix.mat3\n\tlet m4 = wgpuMatrix.mat4\n\t\n\tlog('Bengkel Gear js')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "155",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let obj = bg.obj = []\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.newporos = ()=>{\n\tlet o = sp.newobj('rangkaporos')\n\tobj.push(o)\n\tlet m = o.node.matlok\n\tm4.scale(m,[1,22,1,],m,)\n\t\n\treturn o\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.newsabuk = ()=>{\n\tlet o = sp.newobj('rangkasabuk')\n\tobj.push(o)\n\t\n\treturn o\n\t//rumus posisi sabuk di 2 katrol\n\t// https://www.tec-science.com/mechanical-power-transmission/belt-drive/calculation-of-the-belt-length/\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "bg.newkatrol = ()=>{\n\tlet o = sp.newobj('rangkakatrol')\n\tobj.push(o)\n\t\n\treturn o\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "sp.settimeout(33)\nsp.updsinar(0xffffff33)\nsp.updbayangan(0xffffff22)\nbg.newporos()\nlet s = bg.newsabuk().node\nlet ms = s.matlok\nlet m2ds = s.mat2d[0]\nlet mk = bg.newkatrol().node.matlok\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "155",
+					"g": "255",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "m4.translate(ms,[4,0,0,],ms,)\nm4.scale(ms,[1,1,10,],ms,)\nm3.scale(m2ds,[10,1,],m2ds,)\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "sp.render(dt=>{\n\tm4.rotateY(mk,.0001/4*dt,mk,)\n\tlet m = m3.translation([-.0001*dt,0,])\n\tm3.mul(m,m2ds,m2ds,)\n\t//m3.translate(m2ds,[-.0001*dt,0,],m2ds,)\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "155",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]

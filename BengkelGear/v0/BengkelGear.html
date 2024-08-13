@@ -1,0 +1,246 @@
+<!--h00000-->
+<!DOCTYPE	html>
+<html>
+	<head>
+		<title>
+			Bengkel Gear
+		</title>
+		<link rel="stylesheet" href="https://angkasamuhammad.github.io/Poly-Landhep/Poly%20Landhep/v2/../v1/css/object3dview.css"/><!--<link rel="stylesheet" href="../../Poly%20Landhep/v2/../v1/css/object3dview.css"/>-->
+		<link rel="stylesheet" href="css/BengkelGear.css"/>
+		<link id="meshshader" href="js/meshshader.wgsl"/>
+		<link id="bordershader" href="js/bordershader.wgsl"/>
+		
+		<link id="meshgltf" href="3d/BengkelGear.gltf"/>
+		<link id="meshbin" href="3d/BengkelGear.bin"/>
+	</head>
+	<body>
+		<canvas id="canv3d" width="1000" height="700"></canvas>
+		<canvas id="canv2d" width="1000" height="700"></canvas>
+		<div id="ui">
+			<div id="menu">
+				<div id="menuobjek">
+					<!--
+					<svg id="newporos" mousedescr="New Poros" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					<svg id="newsabuk" mousedescr="New Sabuk" viewBox="-50 -50 100 100">
+						<path fill="none" stroke="white" stroke-width="6px" d="
+							M -30 -30
+							L -30 30
+							L 30 30
+							L 30 -30
+							Z
+							M -20 0 L 20 0
+							M 0 -20 L 0 20
+						"/>
+					</svg>
+					-->
+					<svg id="move" mousedescr="Move" viewBox="-10 -10 20 20">
+						<path fill="none" stroke="white" stroke-width="1px" d="
+							M 0 8
+							L 0 -8
+							M 8 0
+							L -8 0
+							
+							M -2 -6
+							L 0 -8
+							L 2 -6
+							M -6 -2
+							L -8 0
+							L -6 2
+							M 2 6
+							L 0 8
+							L -2 6
+							M 6 2
+							L 8 0
+							L 6 -2
+						"/>
+					</svg>
+					<!--
+<svg id="paskatrol" mousedescr="Pasang Katrol" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30" igetthisfrom="https://www.iconbolt.com/iconsets/those-icons-line/science-pulley-graviti-pull">
+  <g id="Pulley">
+    <g>
+      <circle cx="15" cy="10" r="0.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <rect x="9.5" y="19.5" width="2" height="5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <polyline points="10.5 24.5 10.5 29.5 11.5 28.5 9.5 28.5 10.5 29.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <line x1="15" y1="4.28" x2="15" y2="0.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <line x1="10.5" y1="0.5" x2="19.5" y2="0.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <line x1="19.5" y1="29.5" x2="19.5" y2="13.16" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <line x1="10.5" y1="13.16" x2="10.5" y2="19.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+      <circle cx="15" cy="10" r="5.5" style="fill: none;stroke: white;stroke-linecap: round;stroke-linejoin: round"/>
+    </g>
+  </g>
+</svg>
+				
+					<svg id="pasdiff" mousedescr="Pasang Differential" viewBox="-10 -10 20 20">
+						<path fill="none" stroke="white" stroke-width="1px" d="
+						"/>
+					</svg>
+					-->
+				</div>
+				<div id="menufile">
+					<svg id="open" mousedescr="Open" viewBox="0 0 48 48">
+						<path fill="none" stroke="white" stroke-width="2px" d="M38,12H22l-4-4H8c-2.2,0-4,1.8-4,4v24c0,2.2,1.8,4,4,4h31c1.7,0,3-1.3,3-3V16C42,13.8,40.2,12,38,12z"/>
+						<path fill="none" stroke="white" stroke-width="2px" d="M42.2,18H15.3c-1.9,0-3.6,1.4-3.9,3.3L8,40h31.7c1.9,0,3.6-1.4,3.9-3.3l2.5-14C46.6,20.3,44.7,18,42.2,18z"/>
+					</svg>
+					<!-- https://brandeps.com/icon/S/Save-03 -->
+					<svg id="save" mousedescr="Save" viewBox="-50 -50 612 612">
+						<path fill="none" stroke="white" stroke-width="21px" d="
+							M12.4,0h333M12.4,0v512h487.3V114.3L404.1,0h-58.9v195.4H85.8V0H12.4z M207.8,24.7v122h97.3v-122H207.8z    M85.8,276.5h341.3v186.9H85.8V276.5z M134.4,316.6v24.7h244.1v-24.7H134.4z M134.4,390v24.7h244.1V390   C378.5,390,134.4,390,134.4,390z
+						"/>
+					</svg>
+					<svg id="saveas" mousedescr="Save As" viewBox="-50 -50 612 612">
+						<path fill="none" stroke="white" stroke-width="21px" d="
+							M12.4,0h333M12.4,0v512h487.3V114.3L404.1,0h-58.9v195.4H85.8V0H12.4z M207.8,24.7v122h97.3v-122H207.8z    M85.8,276.5h341.3v186.9H85.8V276.5z M134.4,316.6v24.7h244.1v-24.7H134.4z M134.4,390v24.7h244.1V390   C378.5,390,134.4,390,134.4,390z
+						"/>
+					</svg>
+				</div>
+			</div>
+			<div id='hlmdata'>
+				<h2>Bengkel Gear</h2>
+				<h2>sampe sini, bikin fungsi klik di tabel th untuk menambah objek</h2>
+				<table class="hlmhelp" style="color:#88ff88;"><tbody>
+					<tr><td>Putar kamera	</td><td>: Hold R	</td></tr>
+					<tr><td>Zoom	</td><td>: Hold R + mousewheel	</td></tr>
+					<tr><td>Geser kamera arah horizontal	</td><td>: Hold M	</td></tr>
+					<tr><td>Geser kamera arah vertikal	</td><td>: Hold M + mousewheel	</td></tr>
+					<tr><td>Reset kamera	</td><td>: Press H	</td></tr>
+				</tbody></table>
+				
+				<table id="sabukporos" class="objlist">
+					<thead>
+						<tr><th colspan="5">+Sabuk</th></tr>
+						<tr><th colspan="5">+Poros</th></tr>
+						<tr>
+							<th>no	</th>
+							<th>nama	</th>
+							<th>tipe	</th>
+							<th>massa	</th>
+							<th>gaya	</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0	</td>
+							<td><input class="nama" type="text" value="sabuukk"/>	</td>
+							<td>sabuk	</td>
+							<td><input class="massa" type="text" value="2"/>	</td>
+							<td><input class="gaya" type="text" value="6.33"/>	</td>
+						</tr>
+						<tr>
+							<td>1	</td>
+							<td><input class="nama" type="text" value="ppppooooros"/>	</td>
+							<td>poros	</td>
+							<td><input class="massa" type="text" value=".352"/>	</td>
+							<td><input class="gaya" type="text" value="-123.27"/>	</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table id="katrol" class="objlist">
+					<thead>
+						<tr><th colspan="4">+Katrol</th></tr>
+						<tr>
+							<th>no	</th>
+							<th>nama	</th>
+							<th>poros	</th>
+							<th>sabuk	</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0	</td>
+							<td><input class="nama" type="text" value="katrolkuuu"/>	</td>
+							<td>ppppooooros	</td>
+							<td>sabuukk	</td>
+						</tr>
+						<tr>
+							<td>1	</td>
+							<td><input class="nama" type="text" value="katrolkuuu"/>	</td>
+							<td>por	</td>
+							<td>ini sabbbbuk	</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table id="diff" class="objlist">
+					<thead>
+						<tr><th colspan="5">+Differential</th></tr>
+						<tr>
+							<th>no	</th>
+							<th>nama	</th>
+							<th>sabuk atas	</th>
+							<th>poros	</th>
+							<th>sabuk bawah	</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0	</td>
+							<td><input class="nama" type="text" value="diffe"/>	</td>
+							<td>sabuukk	</td>
+							<td>ppppooooros	</td>
+							<td>ssaaa	</td>
+						</tr>
+						<tr>
+							<td>1	</td>
+							<td><input class="nama" type="text" value="diffffffff"/>	</td>
+							<td>s	</td>
+							<td>por	</td>
+							<td>ini sabbbbuk	</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<table id="kopling" class="objlist">
+					<thead>
+						<tr><th colspan="4">+Kopling</th></tr>
+						<tr>
+							<th>no	</th>
+							<th>nama	</th>
+							<th>poros 0	</th>
+							<th>poros 1	</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>0	</td>
+							<td><input class="nama" type="text" value="koplllll"/>	</td>
+							<td>ppppooooros	</td>
+							<td>p	</td>
+						</tr>
+						<tr>
+							<td>1	</td>
+							<td><input class="nama" type="text" value="joko kopling"/>	</td>
+							<td>porros	</td>
+							<td>por	</td>
+						</tr>
+					</tbody>
+				</table>
+				
+				<div id="scrollberlebih"></div>
+			</div>
+		</div>
+		<div id="moutex"></div>
+		
+		<script src="https://angkasamuhammad.github.io/Poly-Landhep/Poly%20Landhep/v2/../v1/js/wgpu-matrix.js"></script><!--<script src="../../Poly%20Landhep/v2/../v1/js/wgpu-matrix.js"></script>-->
+		<script src="js/rumus.js"></script>
+		<script src="js/PL.js"></script>
+		<script src="js/freadgltf.js"></script>
+		<script src="js/loaddraw.js"></script>
+		<script src="js/camera.js"></script>
+		<script src="js/siappakai.js"></script>
+		
+		<script src="js/GaussJordan.js"></script>
+		<script src="js/BengkelGear.js"></script>
+		<script src="js/ui.js"></script>
+	</body>
+</html>

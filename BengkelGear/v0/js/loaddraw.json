@@ -1,0 +1,389 @@
+[
+	[
+		{
+			"text": "\"use strict\"\n\n/*\n--\tsegera\n=>\tdiurus\n\tsudah\n\n-------------\n\n*/\nlet ld = {}\npl.thenarr.push(async aa=>{\n",
+			"visible": true,
+			"time": "428500.5571049594",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "188",
+					"g": "88",
+					"b": "122",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "188",
+					"b": "255",
+					"frame": ".21"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let lih = ru.lihat\nlet que = ru.que\nlet v3 = wgpuMatrix.vec3\nlet m3 = wgpuMatrix.mat3\nlet m4 = wgpuMatrix.mat4\nlet w = pl.canv.width\nlet h = pl.canv.height\n\nlih('loaddraw loadedddddddd')\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "188",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let gltf_bin\nlet loadgltfbin = ld.loadgltfbin = async ()=>{\n\tlet [fsfh] = await showOpenFilePicker()\n\tlet file = await fsfh.getFile()\n\tgltf_bin = await file.arrayBuffer()\n\tlih(gltf_bin)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "0",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let gltf_json\nlet loadgltfjson = ld.loadgltfjson = async ()=>{\n\tlet [fsfh] = await showOpenFilePicker()\n\tlet file = await fsfh.getFile()\n\tgltf_json = JSON.parse(await file.text())\n\tlih(gltf_json)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "let read = ()=>{\n\tlet h = lih(freadgltf(gltf_json,gltf_bin,))\n\tmat3dpisah = h.mat3dpisah\n\tmat2dpisah = h.mat2dpisah\n}\nlet mat3dpisah = null\nlet mat2dpisah = null\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "122",
+					"g": "122",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//https://github.com/toji/gl-matrix/blob/master/dist/gl-matrix.js\n//aku edit dikit\n  /**\n   * Creates a matrix from a quaternion rotation, vector translation and vector scale\n   * This is equivalent to (but much faster than):\n   *\n   *     mat4.identity(dest);\n   *     mat4.translate(dest, vec);\n   *     let quatMat = mat4.create();\n   *     quat4.toMat4(quat, quatMat);\n   *     mat4.multiply(dest, quatMat);\n   *     mat4.scale(dest, scale)\n   *\n   * @param {mat4} out mat4 receiving operation result\n   * @param {quat4} q Rotation quaternion\n   * @param {ReadonlyVec3} v Translation vector\n   * @param {ReadonlyVec3} s Scaling vector\n   * @returns {mat4} out\n   */\n\nlet matRTS = (q, v, s,out,)=>{//fromRotationTranslationScale\n    // Quaternion math\n\tout = out??new Float32Array(16)\n    var x = q[0],\n        y = q[1],\n        z = q[2],\n        w = q[3];\n    var x2 = x + x;\n    var y2 = y + y;\n    var z2 = z + z;\n    var xx = x * x2;\n    var xy = x * y2;\n    var xz = x * z2;\n    var yy = y * y2;\n    var yz = y * z2;\n    var zz = z * z2;\n    var wx = w * x2;\n    var wy = w * y2;\n    var wz = w * z2;\n    var sx = s[0];\n    var sy = s[1];\n    var sz = s[2];\n    out[0] = (1 - (yy + zz)) * sx;\n    out[1] = (xy + wz) * sx;\n    out[2] = (xz - wy) * sx;\n    out[3] = 0;\n    out[4] = (xy - wz) * sy;\n    out[5] = (1 - (xx + zz)) * sy;\n    out[6] = (yz + wx) * sy;\n    out[7] = 0;\n    out[8] = (xz + wy) * sz;\n    out[9] = (yz - wx) * sz;\n    out[10] = (1 - (xx + yy)) * sz;\n    out[11] = 0;\n    out[12] = v[0];\n    out[13] = v[1];\n    out[14] = v[2];\n    out[15] = 1;\n    return out;\n  }",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "413775.8030041581",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "ld.newobj = namadraw=>{//draw\n\tlet draw = null\n\tfor(let o of pl.drawarr){ if(o.name === namadraw){draw = o;break} }\n\tif(!draw){return lih(['draw tidak dtemukan',pl.drawarr,])}\n\tif(draw.nmax <= draw.objarr.length){return lih('ERROR!: '+namadraw+' penuh, max = '+draw.nmax)}\n\t\n\tlet json = gltf_json\n\t//cari armnode\n\tlet list = []\n\tlet out = {draw}\n\t\n\tfor(let node of json.nodes){\n\t\tif(node.name === draw.name){\n\t\t\tout.node = {src:node,mat2d:'belum diisi',obj:out,}\n\t\t\tlist.push(out.node)\n\t\t\tbreak\n\t\t}\n\t}\n\t\n\t//cari joint\n\tlet srcskinjoints = null\n\tfor(let {name,joints,} of json.skins){\n\t\tif(name === draw.name){\n\t\t\tout.skinjoints = (srcskinjoints = joints).slice()\n\t\t\tbreak\n\t\t}\n\t}\n\t\n\twhile(list.length){\n\t\tlet dst = list.shift()\n\t\tlet src = dst.src\n\t\tdst.name = src.name\n\t\tdst.chi = []\n\t\tdst.matglo = m4.identity()\n\t\tdst.matlok = matRTS(\n\t\t\tsrc.rotation??[0,0,0,1,],\n\t\t\tsrc.translation??[0,0,0,],\n\t\t\tsrc.scale??[1,1,1,],\n\t\t)\n\t\tfor(let isrcchi of src.children??[]){\n\t\t\tlet srcchi = json.nodes[isrcchi]\n\t\t\tlet dstchi = {src:srcchi,}\n\t\t\tlist.push(dstchi)\n\t\t\tdst.chi.push(dstchi)\n\t\t\t//cari mat2d\n\t\t\tlet ex = srcchi.extras?.geomat\n\t\t\tif(ex){\n\t\t\t\t//dst.mat2d = structuredClone(ex)\n\t\t\t\tdst.mat2d = []\n\t\t\t\tfor(let m of ex){\n\t\t\t\t\tdst.mat2d.push(m3.set(...m))\n\t\t\t\t}\n\t\t\t}\n\t\t}\n\t\t//cari joint\n\t\tfor(let i = 0;i < out.skinjoints.length;i++){\n\t\t\tlet jointname = json.nodes[srcskinjoints[i]].name\n\t\t\tif(jointname === src.name){\n\t\t\t\tout.skinjoints[i] = dst\n\t\t\t\tbreak\n\t\t\t}\n\t\t}\n\t\tdelete dst.src\n\t}\n\t\n\tdraw.objarr.push(out)\n\t//lih(namadraw+' -->> nmax = '+draw.nmax+', objlen = '+draw.objarr.length)\n\treturn out\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "ld.deleteobj = obj=>{\n\tlet arr = obj.draw.objarr\n\tlet i = arr.indexOf(obj)\n\t;(i >= 0) && arr.splice(i,1,)\n}\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "155",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "337099.62570276624",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "0",
+					"frame": ".1"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "//mulai\nlih(await Promise.all([\n\t(async ()=>{\n\t\tlet href = ru.que('#meshbin')[0].href\n\t\tlet fileku = await fetch(href)\n\t\treturn gltf_bin = await fileku.arrayBuffer()\n\t})(),\n\t(async ()=>{\n\t\tlet href = ru.que('#meshgltf')[0].href\n\t\tlet fileku = await fetch(href)\n\t\treturn gltf_json = await fileku.json()\n\t})(),\n]))\n\nread()\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "0",
+					"g": "188",
+					"b": "122",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "\n/*\n\n\n\n\n\n\n\n\n\n\n*/\n",
+			"visible": true,
+			"time": "336982.1493027665",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".2"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": false,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		},
+		{
+			"text": "\npl.render.push(dt=>{\n\t\n\t//hitung mat\n\tfor(let dr of pl.drawarr){\n\t\tfor(let {node} of dr.objarr){\n\t\t\tlet nl = [node]//nodelist\n\t\t\tm4.identity(node.matglo)\n\t\t\twhile(nl.length){\n\t\t\t\nlet nodeini = nl.shift()\nlet glo = nodeini.matglo\nlet lok = nodeini.matlok\nm4.mul(glo,lok,glo,)\nfor(let chiini of nodeini.chi){\n\tnl.push(chiini)\n\tm4.copy(glo,chiini.matglo,)\n}\n\t\t\t\n\t\t\t}\n\t\t}\n\t}\n\t\n\t//kirim\n\tfor(let dr of pl.drawarr){\n\t\tlet name = dr.name\n\t\tlet objarr = dr.objarr\n\t\t\n\t\tlet m2dpis = mat2dpisah[name]\n\t\tlet m3dpis = mat3dpisah[name]\n\t\tfor(let i = 0;i < objarr.length;i++){\n\n//mat2d\nlet mp2d = m2dpis[i]\nlet geomat = objarr[i].node.mat2d\nfor(let j = 0;j < mp2d.length;j++){\n\tm3.copy(geomat[j],mp2d[j],)\n}\n\n//mat3d\nlet sj = objarr[i].skinjoints\nlet mp = m3dpis[i]\nfor(let j = 0;j < sj.length;j++){\n\tlet m0 = sj[j].matglo\n\tlet m1 = mp[j]\n\tm4.copy(m0,m1,)\n}\n\n\t\t}\n\t\tpl.upddrawmat2d(dr)\n\t\tpl.upddrawmat3d(dr)\n\t}\n})\n",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "188",
+					"g": "222",
+					"b": "188",
+					"frame": "0"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "})\n",
+			"visible": true,
+			"time": "428314.9896049331",
+			"speed": "1",
+			"running": true,
+			"color": [
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": "0"
+				},
+				{
+					"r": "0",
+					"g": "0",
+					"b": "255",
+					"frame": ".1"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".11"
+				},
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": ".4"
+				}
+			]
+		}
+	],
+	[
+		{
+			"text": "",
+			"visible": true,
+			"time": "0",
+			"speed": "1",
+			"running": false,
+			"color": [
+				{
+					"r": "255",
+					"g": "255",
+					"b": "255",
+					"frame": "0"
+				}
+			]
+		}
+	]
+]
